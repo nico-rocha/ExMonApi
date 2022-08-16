@@ -5,7 +5,7 @@
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+import Config
 
 config :ex_mon_api,
   ecto_repos: [ExMonApi.Repo]

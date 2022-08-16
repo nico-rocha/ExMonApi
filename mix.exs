@@ -43,6 +43,8 @@ defmodule ExMonApi.MixProject do
       {:gettext, "~> 0.11"},
       {:argon2_elixir, "~> 3.0"},
       {:jason, "~> 1.0"},
+      {:tesla, "~> 1.4"},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:plug_cowboy, "~> 2.0"}
     ]
   end
