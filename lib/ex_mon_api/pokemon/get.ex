@@ -9,5 +9,6 @@ defmodule ExMonApi.Pokemon.Get do
   end
 
   def handle_response({:ok, body}), do: {:ok, Pokemon.build(body)}
+  def handle_response({:error, {:message, status: 404}} = error), do: error
   def handle_response({:error, _reason} = error), do: error
 end
