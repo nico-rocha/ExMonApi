@@ -8,6 +8,7 @@ defmodule ExMonApiWeb.Router do
   scope "/api", ExMonApiWeb do
     pipe_through :api
     resources "/trainers", TrainersController, only: [:create, :show, :delete, :update]
+    get "/pokemons/:name", PokemonsController, :show
   end
 
   # Enables LiveDashboard only for development
