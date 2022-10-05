@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :ex_mon_api, ExMonApi.Repo,
   username: "postgres",
-  password: "postgres23",
+  password: "projectsudo",
   database: "ex_mon_api_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,

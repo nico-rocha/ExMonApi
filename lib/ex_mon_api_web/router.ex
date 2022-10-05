@@ -1,13 +1,22 @@
-defmodule ExMonApiWeb.Router do
-  use ExMonApiWeb, :router
+defmodule ExMonApiWeb.Router do use ExMonApiWeb, :router
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  # Scopes
+  scope "/", ExMonApiWeb do
+    pipe_through :api
+
+    get "/", WelcomeController, :index
+  end
+
   scope "/api", ExMonApiWeb do
     pipe_through :api
+
     resources "/trainers", TrainersController, only: [:create, :show, :delete, :update]
+    resources "/trainer_pokemons", TrainerPokemonsController, only: [:create, :show, :delete, :update]
+
     get "/pokemons/:name", PokemonsController, :show
   end
 
@@ -23,13 +32,20 @@ defmodule ExMonApiWeb.Router do
 
     scope "/" do
       pipe_through [:fetch_session, :protect_from_forgery]
-      live_dashboard "/dashboard", metrics: ExMonApiWeb.Telemetry
+
+      live_dashboard "/dashboard", metrics: ExMonWeb.Telemetry
     end
   end
 
-  scope "/", ExMonApiWeb do
-    pipe_through :api
+  # Enables the Swoosh mailbox preview in development.
+  #
+  # Note that preview only shows emails that were sent by the same
+  # node running the Phoenix server.
+  if Mix.env() == :dev do
+    scope "/dev" do
+      pipe_through [:fetch_session, :protect_from_forgery]
 
-    get "/", WelcomeController, :index
+      forward "/mailbox", Plug.Swoosh.MailboxPreview
+    end
   end
 end

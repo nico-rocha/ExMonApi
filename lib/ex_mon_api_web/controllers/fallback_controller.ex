@@ -5,6 +5,6 @@ defmodule ExMonApiWeb.FallbackController do
     conn
     |> put_status(status)
     |> put_view(ExMonApiWeb.ErrorView)
-    |> render("400.json", result: result)
+    |> render("400.json", result: result) 
   end
 end
